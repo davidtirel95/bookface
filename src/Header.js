@@ -18,6 +18,7 @@ function Header() {
     <div className="header">       
             <div className="header_left">
             <img src="/images/Facebook_Logo.png" alt=""/>
+            
             <div className="header_input">
             <searchIcon />
             <input type="Text" />
