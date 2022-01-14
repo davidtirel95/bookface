@@ -32,9 +32,9 @@ module.exports = {
             const user = checkAuth(context); 
             console.log(user); 
 
-            if(args.body.trim() === '') {
-                throw new Error ('Post must not be empty'); 
-            }
+            //if(args.body.trim() === '') {
+               // throw new Error ('Post must not be empty'); 
+           // }
 
             const newPost = new Post({
                 body,
@@ -45,9 +45,9 @@ module.exports = {
 
             const post = await newPost.save(); 
 
-            /*context.pubsub.publish('NEW_POST', {
-                newPost: post
-            });*/
+           // context.pubsub.publish('NEW_POST', {
+              //  newPost: post
+           // });
 
             return post; 
         },

@@ -2,10 +2,10 @@
   "name": "socialnetwork",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "serve": "node app",
-    "start": "nodemon app"
+    "serve": "node index",
+    "start": "nodemon index"
   },
   "keywords": [],
   "author": "",

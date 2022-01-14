@@ -1,4 +1,29 @@
 const { ApolloServer, PubSub } = require('apollo-server');
+
+const mongoose = require('mongoose');
+
+const typeDefs = require('./graphql/typeDefs');
+const resolvers = require('./graphql/resolvers'); 
+const { MONGODB } = require('./config.js');
+
+const server = new ApolloServer({
+    typeDefs, 
+    resolvers,
+    //plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    context: ({ req }) => ({ req, /*pubsub*/ })
+}); 
+
+//DB connection/Server connection
+mongoose
+    .connect(MONGODB, { useNewUrlParser: true})
+    .then (() => {
+        console.log('mongodb connected'); 
+        return server.listen({ port: 3000});
+    })
+    .then((res) => {
+        console.log(`Server running at ${res.url}`);
+    });
+
 //const { ApolloServerPluginDrainHttpServer } = require ('apollo-server-core');
 //
 
@@ -50,13 +75,9 @@ app.use(
 //const httpServer = createServer(Subscription);
 
 //const { PubSub } = require('apollo-server-express'); 
-const mongoose = require('mongoose');
 
-const typeDefs = require('./graphql/typeDefs');
-const resolvers = require('./graphql/resolvers'); 
-const { MONGODB } = require('./config.js');
 
-//const pubsub = new PubSub(); 
+  //const pubsub = new PubSub(); 
 
 //const schema = makeExecutableSchema({ typeDefs, resolvers });
 // ...
@@ -66,26 +87,3 @@ const { MONGODB } = require('./config.js');
   context: ({ req }) => ({ req, pubsub })
 });*/
 
-
-const server = new ApolloServer({
-    typeDefs, 
-    resolvers,
-    //plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-    context: ({ req }) => ({ req, /*pubsub*/ })
-}); 
-
-//DB connection/Server connection
-mongoose
-    .connect(MONGODB, { useNewUrlParser: true})
-    .then (() => {
-        console.log('mongodb connected'); 
-        return server.listen({ port: 5000});
-    })
-    .then((res) => {
-        console.log(`Server running at ${res.url}`);
-    });
-
-
-
-
-  
